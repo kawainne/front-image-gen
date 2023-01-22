@@ -6,7 +6,7 @@ import { getRandomPrompt } from '../utils';
 import { useEffect } from 'react';
 import Animation from '../components/Animation';
 
-export const BASEURL = process.env.FETCH_API;
+export const BASEURL = "https://image-gen.cyclic.app"
 
 const CreatePost = () => {
 	const navigate = useNavigate();
