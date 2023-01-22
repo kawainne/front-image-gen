@@ -6,6 +6,8 @@ import { getRandomPrompt } from '../utils';
 import { useEffect } from 'react';
 import Animation from '../components/Animation';
 
+const BASEURL = process.env.FETCH_API;
+
 const CreatePost = () => {
 	const navigate = useNavigate();
 	const [form, setForm] = useState({
@@ -35,7 +37,7 @@ const CreatePost = () => {
 		if (form.prompt) {
 			try {
 				setGeneratingImg(true);
-				const response = await fetch('http://localhost:5000/api/v1/dalle', {
+				const response = await fetch(`${BASEURL}/api/v1/dalle`, {
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json',
@@ -62,7 +64,7 @@ const CreatePost = () => {
 		if (form.prompt && form.photo) {
 			setLoading(true);
 			try {
-				const response = await fetch('http://localhost:5000/api/posts', {
+				const response = await fetch(`${BASEURL}/api/posts`, {
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json',
