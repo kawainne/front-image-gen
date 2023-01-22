@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Card, FormField, Loader } from '../components';
 import Animation from '../components/Animation';
+import { BASEURL } from './CreatePost';
 
 const RenderCards = ({ data, title }) => {
 	if (data?.length > 0) {
@@ -23,7 +24,7 @@ const Home = () => {
 		setLoading(true);
 
 		try {
-			const response = await fetch('http://localhost:5000/api/posts', {
+			const response = await fetch(`${BASEURL}/api/posts`, {
 				method: 'GET',
 				headers: {
 					'Content-Type': 'application/json',
