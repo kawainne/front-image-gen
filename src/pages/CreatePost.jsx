@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { preview } from '../assets';
 import { FormField, Loader } from '../components';
@@ -6,7 +7,7 @@ import { getRandomPrompt } from '../utils';
 import { useEffect } from 'react';
 import Animation from '../components/Animation';
 
-export const BASEURL = "https://image-gen.cyclic.app"
+export const BASEURL = 'https://image-gen.cyclic.app';
 
 const CreatePost = () => {
 	const navigate = useNavigate();
@@ -37,19 +38,11 @@ const CreatePost = () => {
 		if (form.prompt) {
 			try {
 				setGeneratingImg(true);
-				const response = await fetch(`${BASEURL}/api/v1/dalle`, {
-					method: 'POST',
-					headers: {
-						'Content-Type': 'application/json',
-					},
-					body: JSON.stringify({ prompt: form.prompt }),
-				});
-				const data = await response.json();
-				setForm((prev) => ({ ...prev, photo: `data:image/jpeg;base64,${data.photo}` }));
+				const response = await axios.post(`${BASEURL}/api/v1/dalle`, { prompt: form.prompt });
+				setForm((prev) => ({ ...prev, photo: `data:image/jpeg;base64,${response.data.photo}` }));
 				handleLimit();
-			} catch (err) {
+			} catch (error) {
 				alert('Something went wrong');
-				console.log(err);
 			} finally {
 				setGeneratingImg(false);
 			}
@@ -64,19 +57,10 @@ const CreatePost = () => {
 		if (form.prompt && form.photo) {
 			setLoading(true);
 			try {
-				const response = await fetch(`${BASEURL}/api/posts`, {
-					method: 'POST',
-					headers: {
-						'Content-Type': 'application/json',
-					},
-					body: JSON.stringify(form),
-				});
-				await response.json();
-
+				await axios.post(`${BASEURL}/api/posts`, form);
 				navigate(`/`);
-			} catch (err) {
+			} catch (error) {
 				alert('Something went wrong or you limit has reached');
-				console.log(err);
 			} finally {
 				setLoading(false);
 			}
@@ -106,8 +90,8 @@ const CreatePost = () => {
 		<Animation>
 			<section className='max-w-7xl mx-auto'>
 				<div>
-					<h1 className='font-extrabold text-[#222328] text-xl md:text-4xl tracking-wide'>Create</h1>
-					<p className='mt text-[#666e75] text-[14px] max-w-[500px]'>
+					<h1 className='font-extrabold text-[#222328] text-xl md:text-4xl tracking-wide 2xl:text-5xl'>Create</h1>
+					<p className='mt text-[#666e75] text-[14px] 2xl:text-lg 2xl:max-w-[600px] max-w-[500px]'>
 						Create generative model created by OpenAI that can generate unique images from text prompts and share it
 						with the community to get feedback and upvotes from other users.
 					</p>
@@ -150,7 +134,7 @@ const CreatePost = () => {
 							type='button'
 							onClick={generateImage}
 							disabled={limitReached}
-							className={`text-white bg-green-700 font-medium rounded-md text-sm w-full sm:w-auto px-5
+							className={`text-white bg-green-700 hover:bg-green-900 font-medium rounded-md text-sm w-full sm:w-auto px-5
            py-2.5 text-center ${limitReached ? 'opacity-50 cursor-not-allowed' : ''}`}>
 							{generatingImg ? 'Generating...' : 'Generate'}
 						</button>
@@ -169,11 +153,11 @@ const CreatePost = () => {
 						</p>
 						<button
 							type='submit'
-							disabled={shareBeforaGenerate}
+							disabled={shareBeforaGenerate || loading}
 							className={`mt-3 text-white bg-[#6469ff] ${
 								shareBeforaGenerate ? 'opacity-50 cursor-not-allowed' : ''
 							}  font-medium rounded-md text-sm w-full sm:w-auto px-5 py-2.5 text-center`}>
-							{loading ? 'Sharing' : 'Share with the community'}
+							{loading ? 'Sharing ....' : 'Share with the community'}
 						</button>
 					</div>
 				</form>

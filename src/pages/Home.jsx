@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { Card, FormField, Loader } from '../components';
+import axios from 'axios';
 import Animation from '../components/Animation';
+import { Card, FormField, Loader } from '../components';
 import { BASEURL } from './CreatePost';
 
 const RenderCards = ({ data, title }) => {
@@ -22,19 +22,10 @@ const Home = () => {
 
 	const fetchPosts = async () => {
 		setLoading(true);
-
 		try {
-			const response = await fetch(`${BASEURL}/api/posts`, {
-				method: 'GET',
-				headers: {
-					'Content-Type': 'application/json',
-				},
-			});
-
-			if (response.ok) {
-				const result = await response.json();
-				setAllPosts(result.data.reverse());
-			}
+			const response = await axios.get(`${BASEURL}/api/posts`);
+			const data = response.data.data.reverse()
+			setAllPosts(data);
 		} catch (err) {
 			alert(err);
 		} finally {
