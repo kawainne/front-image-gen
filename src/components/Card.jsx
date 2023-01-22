@@ -1,10 +1,7 @@
-import React from 'react';
-import Swal from 'sweetalert2';
-import withReactContent from 'sweetalert2-react-content';
 import { download } from '../assets';
-import { downloadImage } from '../utils';
+import { MySwal, downloadImage } from '../utils';
 
-const MySwal = withReactContent(Swal);
+
 
 const Card = ({ _id, name, prompt, photo }) => {
 	const handleDownload = () => {

@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { preview } from '../assets';
 import { FormField, Loader } from '../components';
-import { getRandomPrompt } from '../utils';
+import { MySwal, getRandomPrompt } from '../utils';
 import { useEffect } from 'react';
 import Animation from '../components/Animation';
 
@@ -42,12 +42,19 @@ const CreatePost = () => {
 				setForm((prev) => ({ ...prev, photo: `data:image/jpeg;base64,${response.data.photo}` }));
 				handleLimit();
 			} catch (error) {
-				alert('Something went wrong');
+				MySwal.fire({
+					title: 'Something went wrong',
+					text: 'Please try again',
+					icon: 'error',
+				});
 			} finally {
 				setGeneratingImg(false);
 			}
 		} else {
-			alert('Please enter a prompt');
+			MySwal.fire({
+				title: 'Please enter a prompt',
+				icon: 'error',
+			});
 		}
 	};
 
@@ -60,12 +67,19 @@ const CreatePost = () => {
 				await axios.post(`${BASEURL}/api/posts`, form);
 				navigate(`/`);
 			} catch (error) {
-				alert('Something went wrong or you limit has reached');
+				MySwal.fire({
+					title: 'Something went wrong',
+					text: 'Please try again',
+					icon: 'error',
+				});
 			} finally {
 				setLoading(false);
 			}
 		} else {
-			alert('Please generate an image first');
+			MySwal.fire({
+				title: 'Please generate an image first',
+				icon: 'error',
+			});
 		}
 	};
 
