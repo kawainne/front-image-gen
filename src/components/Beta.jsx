@@ -2,19 +2,13 @@ import React from 'react';
 
 // bg-[#6469ff]
 const Beta = () => {
-	// const [show, setShow] = useState(false);
-
-	// const handleShow = () => {
-	// 	setShow((e) => !e);
-	// };
-
 	return (
 		<div className='relative group'>
 			<div className='absolute -inset-0.5  bg-gradient-to-r from-pink-600 to bg-purple-600 rounded-lg blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-tilt' />
 			<div className='grid w-full gap-8 items-start justify-center '>
 				<button
 					className='relative bg-white rounded-lg  flex items-center divide-x divide-gray-800  lg:px-7 lg:py-4 px-2 py-3 text-sm md:text-base'
-					onClick={handleShow}>
+					>
 					<span className='text-black pr-2   lg:pr-6 flex items-center space-x-5'>
 						<svg
 							xmlns='http://www.w3.org/2000/svg'
