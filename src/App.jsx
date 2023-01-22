@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes, Link } from 'react-router-dom';
 import { CreatePost, Home } from './pages';
 import Count from './pages/Count';
 import Beta from './components/Beta';
+import Footer from './components/Footer';
 
 const App = () => {
 	return (
@@ -30,6 +31,7 @@ const App = () => {
 					<Route path='/count' element={<Count />} />
 				</Routes>
 			</main>
+			<Footer />
 		</BrowserRouter>
 	);
 };

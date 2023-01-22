@@ -66,14 +66,14 @@ const Home = () => {
 		<Animation>
 			<section className='max-w-7xl mx-auto'>
 				<div>
-					<h1 className='font-extrabold text-[#222328] lg:text-3xl xl:text-4xl text-[18px] sm:text-[25px]'>
+					<h1 className='font-extrabold text-[#222328] lg:text-3xl xl:text-4xl text-[18px] 2xl:text-5xl sm:text-[25px]'>
 						The
 						<span className='relative bg-gradient-to-r from-green-300 via-blue-500 to-purple-600 bg-clip-text font-extrabold text-transparent mx-2'>
 							Comunity
 						</span>
 						Showcase
 					</h1>
-					<p className='mt text-[#666e75] text-[14px] pt-1 2xl:text-[14px]  max-w-[500px] 2xl:max-w-[450px]'>
+					<p className='mt text-[#666e75] text-[14px] pt-1 2xl:text-[16px]  max-w-[500px] 2xl:max-w-[450px] xl:text-[14px]'>
 						DALL-E is a generative model created by OpenAI that can generate unique images from text prompts
 					</p>
 				</div>
